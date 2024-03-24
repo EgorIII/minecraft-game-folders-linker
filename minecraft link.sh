@@ -16,7 +16,7 @@ for i in $(seq 0 $N); do
 place=${array[((2*$i))]} #selects first location in pair
 ActualDataPlace=${array[$((2*$i+1))]} #selects second item in pair
 
-function do_the_link { # <---------------------------------------------------------------------------------------------------
+function do_the_link { 
 echo "ln --interactive --symbolic --verbose --no-target-directory \"$ActualDataPlace\" \"$place\""
 ln --interactive --symbolic --verbose --no-target-directory "$ActualDataPlace" "$place"
 }
@@ -38,7 +38,7 @@ elif [ -d "${place}" ]; then
     echo "$place exists"
     echo "ls  -Alh \"$place\""
     ls  -Alh "${place}"
-    rsync --archive --verbose --remove-source-files  "$place" "$ActualDataPlace"
+    rsync --archive --verbose --remove-source-files  "$place" "${ActualDataPlace%/*}"
     echo "rm --dir \"${place}\""
     rm --dir "${place}"
     do_the_link
